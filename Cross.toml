@@ -1,2 +1,11 @@
+[target.aarch64-linux-android]
+dockerfile = "./docker/cross/target.aarch64-linux-android.dockerfile"
+
+[target.armv7-linux-androideabi]
+dockerfile = "./docker/cross/target.armv7-linux-androideabi.dockerfile"
+
+[target.i686-linux-android]
+dockerfile = "./docker/cross/target.i686-linux-android.dockerfile"
+
 [target.x86_64-linux-android]
-dockerfile = "./target.x86_64-linux-android.dockerfile"
+dockerfile = "./docker/cross/target.x86_64-linux-android.dockerfile"
