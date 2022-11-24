@@ -26,7 +26,7 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{matrix.architecture}} --release --package ${{ env.PACKAGE }} --no-default-features --features=ffi
+          args: --target ${{matrix.architecture}} --release --package ${{ env.PACKAGE }} --no-default-features --features=ffi,log
       - name: Save library
         uses: actions/upload-artifact@v2
         with:
