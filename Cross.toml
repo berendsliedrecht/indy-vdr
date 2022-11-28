@@ -1,5 +1,5 @@
 [target.aarch64-linux-android]
-dockerfile = "./docker/cross/target.aarch64-linux-android.dockerfile"
+pre-build = ["dpkg --add-architecture arm64 && apt-get update && apt-get install --assume-yes libzmq3-dev:arm64"]
 
 [target.armv7-linux-androideabi]
 dockerfile = "./docker/cross/target.armv7-linux-androideabi.dockerfile"
