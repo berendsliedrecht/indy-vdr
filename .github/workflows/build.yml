@@ -22,30 +22,30 @@ on:
 
 jobs:
   build-android:
-  name: build android libraries
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      architecture:
-        [
-          aarch64-linux-android,
-          armv7-linux-androideabi,
-          i686-linux-android,
-          x86_64-linux-android,
-        ]
+    name: build android libraries
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture:
+          [
+            aarch64-linux-android,
+            armv7-linux-androideabi,
+            i686-linux-android,
+            x86_64-linux-android,
+          ]
 
-  steps:
-    - uses: actions/checkout@v3
-    - uses: actions-rs/cargo@v1
-      with:
-        use-cross: true
-        command: build
-        args: --release --target ${{matrix.architecture}} --package indy-vdr
-    - name: Save library
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ matrix.architecture}}
-        path: target/${{ matrix.architecture }}/release/libindy_vdr.so
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target ${{matrix.architecture}} --package indy-vdr
+      - name: Save library
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.architecture}}
+          path: target/${{ matrix.architecture }}/release/libindy_vdr.so
   create_android_library:
     name: Create android libs
     runs-on: ubuntu-latest
