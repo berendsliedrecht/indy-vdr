@@ -229,10 +229,15 @@ jobs:
   build-android:
     name: Build Android libraries
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-	architecture: [x86_64-linux-android, i686-linux-android, armv7-linux-androideabi, aarch64-linux-android]
+        architecture:
+          [
+            aarch64-linux-android,
+            armv7-linux-androideabi,
+            i686-linux-android,
+            x86_64-linux-android,
+          ]
 
     steps:
       - uses: actions/checkout@v3
