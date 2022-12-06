@@ -241,19 +241,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-	- uses: actions-rs/toolchain@v1
-	  with:
-	    toolchain: stable
-	- uses: actions-rs/cargo@v1
-	  with:
-	    cross: true
-	    command: build
-	    args: --release --package=indy-vdr --target=${{ matrix.architecture }}
-	- name: Save library
-	  uses: actions/upload-artifact@v2
-	  with:
-	    name: Save ${{ matrix.architecture }}
-	    path: target/${{ matrix.architecture }}/release/libindy_vdr.so
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --package=indy-vdr --target=${{ matrix.architecture }}
+      - name: Save library
+        uses: actions/upload-artifact@v2
+        with:
+          name: Save ${{ matrix.architecture }}
+          path: target/${{ matrix.architecture }}/release/libindy_vdr.so
   create-android-library:
     name: Create android library
     runs-on: ubuntu-latest
