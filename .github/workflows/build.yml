@@ -21,17 +21,22 @@ on:
         type: boolean
 
 jobs:
-  build_ios:
+  build-ios:
     name: build ios xcframework
     runs-on: macos-latest
     strategy:
       matrix:
-        architecture: [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
+        architecture:
+          [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
     steps:
       - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{matrix.architecture}}
+          override: true
       - uses: actions-rs/cargo@v1
         with:
-          use-cross: true
           command: build
           args: --target ${{matrix.architecture}} --release --package indy-vdr
       - name: Save static library
@@ -40,10 +45,10 @@ jobs:
           name: ${{ matrix.architecture}}
           path: target/${{ matrix.architecture }}/release/libindy_vdr.a
 
-  create_ios_xcframework:
+  create-ios-xcframework:
     name: Create ios xcframework
     runs-on: macos-latest
-    needs: build_ios
+    needs: build-ios
     steps:
       - uses: actions/checkout@v2
       - name: Fetch static libraries
