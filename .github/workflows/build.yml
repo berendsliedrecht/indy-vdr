@@ -25,8 +25,8 @@ jobs:
     name: build ios xcframework
     runs-on: macos-latest
     strategy:
-    matrix:
-      architecture: [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
+      matrix:
+        architecture: [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/cargo@v1
