@@ -6,11 +6,17 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'plugin:prettier/recommended',
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.eslint.json', 'shared/tsconfig.json', 'react-native/tsconfig.json', 'nodejs/tsconfig.json'],
+    project: [
+      './tsconfig.eslint.json',
+      'shared/tsconfig.json',
+      'react-native/tsconfig.json',
+      'nodejs/tsconfig.json',
+      'react-native-app/tsconfig.json',
+    ],
   },
   settings: {
     'import/extensions': ['.js', '.ts', '.jsx', '.tsx'],
@@ -20,11 +26,21 @@ module.exports = {
     'import/resolver': {
       typescript: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        project: ['shared/tsconfig.json', 'react-native/tsconfig.json', 'nodejs/tsconfig.json'],
+        project: [
+          'shared/tsconfig.json',
+          'react-native/tsconfig.json',
+          'nodejs/tsconfig.json',
+          'react-native-app/tsconfig.json',
+        ],
         alwaysTryTypes: true,
       },
       node: {
-        project: ['shared/tsconfig.json', 'react-native/tsconfig.json', 'nodejs/tsconfig.json'],
+        project: [
+          'shared/tsconfig.json',
+          'react-native/tsconfig.json',
+          'nodejs/tsconfig.json',
+          'react-native-app/tsconfig.json',
+        ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
