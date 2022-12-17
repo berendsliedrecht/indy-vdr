@@ -7,7 +7,7 @@ set (BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
 
 file (GLOB LIBFBJNI_INCLUDE_DIR "${BUILD_DIR}/fbjni-*-headers.jar/")
 file (GLOB LIBRN_DIR "${BUILD_DIR}/react-native-0*/jni/${ANDROID_ABI}")
-file (GLOB LIBVDR_DIR "${CMAKE_SOURCE_DIR}/../native/android/libs/${ANDROID_ABI}")
+file (GLOB LIBVDR_DIR "${CMAKE_SOURCE_DIR}/../native/android/${ANDROID_ABI}")
 
 include_directories(
   ../cpp
@@ -40,8 +40,6 @@ set_target_properties(
   POSITION_INDEPENDENT_CODE ON
 )
 
-
-
 find_library(
   LOG_LIB
   log
@@ -73,6 +71,7 @@ find_library(
   indy_vdr
   paths ${LIBVDR_DIR}
   NO_CMAKE_FIND_ROOT_PATH
+  NO_CMAKE_SYSTEM_PATH
 )
 
 if (NOT VDR_LIB)

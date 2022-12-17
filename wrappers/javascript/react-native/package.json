@@ -20,13 +20,11 @@
   "files": [
     "build",
     "android/src",
-    "android/libs",
     "android/build.gradle",
     "android/CMakeLists.txt",
     "android/cpp-adapter.cpp",
     "ios/**/*.h",
     "ios/**/*.mm",
-    "ios/Frameworks",
     "ios/indyVdr.xcodeproj/project.pbxproj",
     "cpp/**/*.cpp",
     "cpp/**/*.h",
@@ -38,8 +36,6 @@
   "scripts": {
     "check-types": "tsc --noEmit -p tsconfig.build.json",
     "check-format": "yarn prettier --check",
-    "format": "yarn prettier --write",
-    "prettier": "prettier --ignore-path .gitignore '**/*+(.js|json|ts|md|yml|yaml)'",
     "build": "yarn clean && yarn compile",
     "clean": "rimraf -rf ./build",
     "compile": "tsc -p tsconfig.build.json",
@@ -50,7 +46,6 @@
     "indy-vdr-shared": "0.1.0"
   },
   "devDependencies": {
-    "@types/react": "^16.9.19",
     "@types/react-native": "^0.67.0",
     "prettier": "2.6.2",
     "react": "17.0.2",
@@ -58,7 +53,6 @@
     "typescript": "4.5.5"
   },
   "peerDependencies": {
-    "react": ">= 16",
     "react-native": ">= 0.66.0"
   },
   "binary": {

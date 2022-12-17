@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['node_modules', '**/node_modules', '**/build'],
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
@@ -35,13 +36,13 @@ module.exports = {
         alwaysTryTypes: true,
       },
       node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         project: [
           'shared/tsconfig.json',
           'react-native/tsconfig.json',
           'nodejs/tsconfig.json',
           'react-native-app/tsconfig.json',
         ],
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
@@ -74,12 +75,15 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['.eslintrc.js', 'babel.config.js'],
+      files: ['.eslintrc.js', 'babel.config.js', 'metro.config.js'],
       env: {
         node: true,
       },
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
       },
     },
   ],

@@ -3,7 +3,12 @@
   "private": true,
   "license": "Apache-2.0",
   "workspaces": {
-    "packages": ["shared", "nodejs", "react-native", "react-native-app"],
+    "packages": [
+      "shared",
+      "nodejs",
+      "react-native",
+      "react-native-app"
+    ],
     "nohoist": [
       "**/react-native",
       "**/react-native/**",

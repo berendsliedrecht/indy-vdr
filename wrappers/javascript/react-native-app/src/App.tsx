@@ -1,4 +1,4 @@
-import { IndyVdrReactNative } from 'indy-vdr-react-native'
+import { ReactNativeIndyVdr } from 'indy-vdr-react-native'
 import { StyleSheet, Text, View } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Indy Vdr version: {new IndyVdrReactnative().version()}</Text>
+      <Text>Indy Vdr version: {new ReactNativeIndyVdr().version()}</Text>
     </View>
   )
 }

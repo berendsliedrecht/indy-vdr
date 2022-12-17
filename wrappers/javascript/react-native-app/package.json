@@ -10,6 +10,7 @@
     "lint": "exit 0"
   },
   "dependencies": {
+    "indy-vdr-react-native": "0.1.0",
     "expo": "~47.0.8",
     "react": "18.1.0",
     "react-native": "0.70.5",
