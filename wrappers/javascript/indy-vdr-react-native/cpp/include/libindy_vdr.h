@@ -241,20 +241,6 @@ ErrorCode indy_vdr_build_get_revoc_reg_request(FfiStr submitter_did,
                                                int64_t timestamp,
                                                RequestHandle *handle_p);
 
-#if (defined(DEFINE_RICH_SCHEMA) || defined(DEFINE_TEST))
-ErrorCode indy_vdr_build_get_rich_schema_object_by_id_request(FfiStr submitter_did,
-                                                              FfiStr rs_id,
-                                                              RequestHandle *handle_p);
-#endif
-
-#if (defined(DEFINE_RICH_SCHEMA) || defined(DEFINE_TEST))
-ErrorCode indy_vdr_build_get_rich_schema_object_by_metadata_request(FfiStr submitter_did,
-                                                                    FfiStr rs_type,
-                                                                    FfiStr rs_name,
-                                                                    FfiStr rs_version,
-                                                                    RequestHandle *handle_p);
-#endif
-
 ErrorCode indy_vdr_build_get_schema_request(FfiStr submitter_did,
                                             FfiStr schema_id,
                                             RequestHandle *handle_p);
@@ -286,17 +272,6 @@ ErrorCode indy_vdr_build_revoc_reg_entry_request(FfiStr submitter_did,
                                                  FfiStr revoc_reg_def_type,
                                                  FfiStr revoc_reg_entry,
                                                  RequestHandle *handle_p);
-
-#if (defined(DEFINE_RICH_SCHEMA) || defined(DEFINE_TEST))
-ErrorCode indy_vdr_build_rich_schema_request(FfiStr submitter_did,
-                                             FfiStr rs_id,
-                                             FfiStr rs_content,
-                                             FfiStr rs_name,
-                                             FfiStr rs_version,
-                                             FfiStr rs_type,
-                                             FfiStr ver,
-                                             RequestHandle *handle_p);
-#endif
 
 ErrorCode indy_vdr_build_schema_request(FfiStr submitter_did,
                                         FfiStr schema,
