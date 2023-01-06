@@ -49,3 +49,5 @@ react-native/android/gradle*
 **/build
 **/native/android
 **/native/ios
+**.so
+**/.npmrc
