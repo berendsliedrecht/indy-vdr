@@ -58,8 +58,8 @@
   "binary": {
     "module_name": "indy_vdr",
     "module_path": "native",
-    "remote_path": "v0.4.0",
-    "host": "https://github.com/hyperledger/indy-vdr/releases/download/",
+    "remote_path": "v0.2.1",
+    "host": "https://github.com/animo/indy-vdr-release/releases/download/",
     "package_name": "library-ios-android.tar.gz"
   }
 }
