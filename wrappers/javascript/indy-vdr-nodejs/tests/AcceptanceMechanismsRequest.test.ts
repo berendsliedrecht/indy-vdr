@@ -1,8 +1,8 @@
-import type { IndyVdrPool } from 'indy-vdr-nodejs'
+import type { IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { DID, setupPool } from './utils'
 
-import { AcceptanceMechanismsRequest } from 'indy-vdr-nodejs'
+import { AcceptanceMechanismsRequest } from 'indy-vdr-test-nodejs'
 
 describe('AcceptanceMechanismsRequest', () => {
   let pool: IndyVdrPool

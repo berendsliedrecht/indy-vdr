@@ -1,8 +1,8 @@
-import type { GetCredentialDefinitionResponse, IndyVdrPool } from 'indy-vdr-nodejs'
+import type { GetCredentialDefinitionResponse, IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { CRED_DEF_ID, setupPool } from './utils'
 
-import { GetCredentialDefinitionRequest } from 'indy-vdr-nodejs'
+import { GetCredentialDefinitionRequest } from 'indy-vdr-test-nodejs'
 
 describe('GetCredentialDefinitionRequest', () => {
   let pool: IndyVdrPool

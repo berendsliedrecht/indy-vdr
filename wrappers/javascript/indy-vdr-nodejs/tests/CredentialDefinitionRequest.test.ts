@@ -1,8 +1,8 @@
-import type { IndyVdrPool } from 'indy-vdr-nodejs'
+import type { IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { DID, setupPool } from './utils'
 
-import { CredentialDefinitionRequest } from 'indy-vdr-nodejs'
+import { CredentialDefinitionRequest } from 'indy-vdr-test-nodejs'
 
 describe('CredentialDefinitionRequest', () => {
   let pool: IndyVdrPool

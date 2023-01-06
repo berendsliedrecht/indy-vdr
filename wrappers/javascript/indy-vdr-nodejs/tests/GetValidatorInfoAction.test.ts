@@ -1,8 +1,8 @@
-import type { GetValidatorInfoResponse, IndyVdrPool } from 'indy-vdr-nodejs'
+import type { GetValidatorInfoResponse, IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { DID, setupPool } from './utils'
 
-import { GetValidatorInfoAction } from 'indy-vdr-nodejs'
+import { GetValidatorInfoAction } from 'indy-vdr-test-nodejs'
 
 describe('GetValidatorInfoAction', () => {
   let pool: IndyVdrPool

@@ -33,7 +33,7 @@ import type {
   TransactionAuthorAgreementRequestOptions,
   Transactions,
   Verifiers,
-} from 'indy-vdr-shared'
+} from 'indy-vdr-test-shared'
 
 import { handleError } from './error'
 import {

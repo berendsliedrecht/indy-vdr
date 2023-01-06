@@ -1,17 +1,17 @@
 {
-  "name": "indy-vdr-react-native",
+  "name": "indy-vdr-test-react-native",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
   "description": "React Native wrapper for Indy Vdr",
   "source": "src/index",
   "main": "build/index",
-  "homepage": "https://github.com/hyperledger/indy-vdr/tree/main/wrappers/javascript/indy-vdr-react-native",
+  "homepage": "https://github.com/hyperledger/indy-vdr/tree/main/wrappers/javascript/indy-vdr-test-react-native",
   "author": "Hyperledger (https://github.com/hyperledger)",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperledger/indy-vdr",
-    "directory": "wrappers/javascript/indy-vdr-react-native"
+    "directory": "wrappers/javascript/indy-vdr-test-react-native"
   },
   "publishConfig": {
     "access": "public"
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
-    "indy-vdr-shared": "0.1.0"
+    "indy-vdr-test-shared": "0.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.19",

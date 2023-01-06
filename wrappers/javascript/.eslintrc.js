@@ -12,9 +12,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: [
       './tsconfig.eslint.json',
-      'indy-vdr-shared/tsconfig.json',
-      'indy-vdr-react-native/tsconfig.json',
-      'indy-vdr-nodejs/tsconfig.json',
+      'indy-vdr-test-shared/tsconfig.json',
+      'indy-vdr-test-react-native/tsconfig.json',
+      'indy-vdr-test-nodejs/tsconfig.json',
     ],
   },
   settings: {
@@ -26,17 +26,17 @@ module.exports = {
       typescript: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         project: [
-          'indy-vdr-shared/tsconfig.json',
-          'indy-vdr-react-native/tsconfig.json',
-          'indy-vdr-nodejs/tsconfig.json',
+          'indy-vdr-test-shared/tsconfig.json',
+          'indy-vdr-test-react-native/tsconfig.json',
+          'indy-vdr-test-nodejs/tsconfig.json',
         ],
         alwaysTryTypes: true,
       },
       node: {
         project: [
-          'indy-vdr-shared/tsconfig.json',
-          'indy-vdr-react-native/tsconfig.json',
-          'indy-vdr-nodejs/tsconfig.json',
+          'indy-vdr-test-shared/tsconfig.json',
+          'indy-vdr-test-react-native/tsconfig.json',
+          'indy-vdr-test-nodejs/tsconfig.json',
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },

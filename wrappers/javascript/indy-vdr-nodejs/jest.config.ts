@@ -4,8 +4,8 @@ const config: Config.InitialOptions = {
   verbose: true,
   testTimeout: 120000,
   moduleNameMapper: {
-    '^indy-vdr-shared$': '<rootDir>/../shared/src',
-    '^indy-vdr-nodejs$': '<rootDir>/src',
+    '^indy-vdr-test-shared$': '<rootDir>/../indy-vdr-test-shared/src',
+    '^indy-vdr-test-nodejs$': '<rootDir>/src',
   },
 }
 

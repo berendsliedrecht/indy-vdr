@@ -1,8 +1,8 @@
-import type { GetAttribResponse, IndyVdrPool } from 'indy-vdr-nodejs'
+import type { GetAttribResponse, IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { DID, setupPool } from './utils'
 
-import { GetAttribRequest } from 'indy-vdr-nodejs'
+import { GetAttribRequest } from 'indy-vdr-test-nodejs'
 
 describe('GetAttribRequest', () => {
   let pool: IndyVdrPool

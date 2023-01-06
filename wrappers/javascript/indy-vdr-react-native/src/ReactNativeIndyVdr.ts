@@ -34,7 +34,7 @@ import type {
   TransactionAuthorAgreementRequestOptions,
   Transactions,
   Verifiers,
-} from 'indy-vdr-shared'
+} from 'indy-vdr-test-shared'
 
 import { indyVdrReactNative } from './library'
 import { serializeArguments } from './serialize'

@@ -1,8 +1,8 @@
-import type { GetSchemaResponse, IndyVdrPool } from 'indy-vdr-nodejs'
+import type { GetSchemaResponse, IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { SCHEMA_ID, setupPool } from './utils'
 
-import { GetSchemaRequest } from 'indy-vdr-nodejs'
+import { GetSchemaRequest } from 'indy-vdr-test-nodejs'
 
 describe('GetSchemaRequest', () => {
   let pool: IndyVdrPool

@@ -1,8 +1,8 @@
-import { registerIndyVdr } from 'indy-vdr-shared'
+import { registerIndyVdr } from 'indy-vdr-test-shared'
 
 import { NodeJSIndyVdr } from './NodeJSIndyVdr'
 
 export const indyVdrNodeJS = new NodeJSIndyVdr()
 registerIndyVdr({ vdr: indyVdrNodeJS })
 
-export * from 'indy-vdr-shared'
+export * from 'indy-vdr-test-shared'

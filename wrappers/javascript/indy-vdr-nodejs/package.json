@@ -1,16 +1,16 @@
 {
-  "name": "indy-vdr-nodejs",
+  "name": "indy-vdr-test-nodejs",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "description": "Nodejs wrapper for Indy Vdr",
   "source": "src/index",
   "main": "build/index",
-  "homepage": "https://github.com/hyperledger/indy-vdr/tree/main/wrappers/javascript/indy-vdr-nodejs",
+  "homepage": "https://github.com/hyperledger/indy-vdr/tree/main/wrappers/javascript/indy-vdr-test-nodejs",
   "author": "Hyperledger (https://github.com/hyperledger)",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperledger/indy-vdr",
-    "directory": "wrappers/javascript/indy-vdr-nodejs"
+    "directory": "wrappers/javascript/indy-vdr-test-nodejs"
   },
   "publishConfig": {
     "access": "public"
@@ -45,7 +45,7 @@
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
     "ffi-napi": "^4.0.3",
-    "indy-vdr-shared": "0.1.0",
+    "indy-vdr-test-shared": "0.1.0",
     "ref-array-di": "^1.2.2",
     "ref-napi": "^3.0.3",
     "ref-struct-di": "^1.1.1"

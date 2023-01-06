@@ -1,11 +1,11 @@
 // TODO: this should be turned off at a eslint config level for tests
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import type { IndyVdrPool } from 'indy-vdr-nodejs'
+import type { IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { SOVRIN_GENESIS_TRANSACTION_BUILDER_NET } from './utils'
 
-import { PoolCreate } from 'indy-vdr-nodejs'
+import { PoolCreate } from 'indy-vdr-test-nodejs'
 
 describe('IndyVdrPool', () => {
   let pool: IndyVdrPool

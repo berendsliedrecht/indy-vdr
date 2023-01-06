@@ -1,8 +1,8 @@
-import type { IndyVdrPool } from 'indy-vdr-nodejs'
+import type { IndyVdrPool } from 'indy-vdr-test-nodejs'
 
 import { CRED_DEF_ID, DID, setupPool } from './utils'
 
-import { RevocationRegistryDefinitionRequest } from 'indy-vdr-nodejs'
+import { RevocationRegistryDefinitionRequest } from 'indy-vdr-test-nodejs'
 
 describe('RevocationRegistryDefinitionRequest', () => {
   let pool: IndyVdrPool
