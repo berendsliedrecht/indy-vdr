@@ -223,13 +223,6 @@ jobs:
         with:
           name: libindy_vdr.xcframework
           path: libindy_vdr.xcframework
-      - uses: geekyeggo/delete-artifact@v1
-        with:
-          name: |
-            aarch64-apple-ios
-            aarch64-apple-ios-sim
-            x86_64-apple-ios
-          failOnError: false
 
   build-android:
      name: Build library (Android)
