@@ -212,7 +212,7 @@ jobs:
       - run: >
           lipo -create aarch64-apple-ios-sim/libindy_vdr.a \
                        x86_64-apple-ios/libindy_vdr.a \
-               -output libindy_vdr.dylib
+               -output libindy_vdr.a
       - run: >
           xcodebuild -create-xcframework \
             -library aarch64-apple-ios/libindy_vdr.a -headers ./libindy_vdr/include/libindy_vdr.h \
