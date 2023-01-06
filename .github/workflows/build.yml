@@ -198,7 +198,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ${{ matrix.architecture}}
-            path: target/${{ matrix.architecture }}/release/libindy_vdr.dylib
+            path: target/${{ matrix.architecture }}/release/libindy_vdr.a
 
   create-ios-xcframework:
     name: Create iOS xcframework
@@ -210,13 +210,13 @@ jobs:
       - name: Fetch static libraries
         uses: actions/download-artifact@v3
       - run: >
-          lipo -create aarch64-apple-ios-sim/libindy_vdr.dylib \
-                       x86_64-apple-ios/libindy_vdr.dylib \
+          lipo -create aarch64-apple-ios-sim/libindy_vdr.a \
+                       x86_64-apple-ios/libindy_vdr.a \
                -output libindy_vdr.dylib
       - run: >
           xcodebuild -create-xcframework \
-            -library aarch64-apple-ios/libindy_vdr.dylib -headers ./libindy_vdr/include/libindy_vdr.h \
-            -library libindy_vdr.dylib                   -headers ./libindy_vdr/include/libindy_vdr.h \
+            -library aarch64-apple-ios/libindy_vdr.a -headers ./libindy_vdr/include/libindy_vdr.h \
+            -library libindy_vdr.a                   -headers ./libindy_vdr/include/libindy_vdr.h \
             -output libindy_vdr.xcframework
       - name: Save xcframework
         uses: actions/upload-artifact@v3
