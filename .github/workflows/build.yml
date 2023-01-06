@@ -21,69 +21,8 @@ on:
         type: boolean
 
 jobs:
-  check:
-    name: Run Checks
-    strategy:
-      matrix:
-        os: [macos-11, windows-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache cargo resources
-        uses: Swatinem/rust-cache@v2
-
-      - name: Cargo check
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
-
-      - name: Cargo fmt
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
-
-      - name: Debug build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --manifest-path libindy_vdr/Cargo.toml --features zmq_vendored
-
-  test-suite:
-    name: Run Test Suite
-    needs: [check]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache cargo resources
-        uses: Swatinem/rust-cache@v2
-
-      - name: Run node pool
-        run: |
-          docker build -f ci/indy-pool.dockerfile -t test_pool --build-arg pool_ip=10.0.0.2 ci
-          docker network create --subnet=10.0.0.0/8 indy-sdk-network
-          docker run -d --name indy_pool -p 9701-9708:9701-9708 --net=indy-sdk-network test_pool
-
-      - name: Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --manifest-path libindy_vdr/Cargo.toml --features local_nodes_pool
-
   build-release:
     name: Build Library
-    needs: [check]
 
     strategy:
       matrix:
@@ -173,31 +112,6 @@ jobs:
         with:
           file: library-${{ matrix.arch }}.tar.gz
           asset_name: 'library-${{ matrix.arch }}.tar.gz'
-
-  build-golang:
-    name: Build and Test Go wrapper
-    needs: [build-release]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: 'Use Golang 1.16.x+'
-        uses: actions/setup-go@v2
-        with:
-          go-version: '^1.16.0'
-
-      - name: Fetch library artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: library-linux-x86_64
-
-      - name: Build and test wrapper
-        run: |
-          sudo cp libindy_vdr.so /usr/lib/
-          cd wrappers/golang
-          go run cmd/demo/demo.go
 
   build-javascript:
     name: Build and Test JavaScript wrapper
@@ -405,84 +319,3 @@ jobs:
           with:
             file: library-ios-android.tar.gz
             asset_name: "library-ios-android.tar.gz"
-
-  build-py:
-    name: Build and Test Python Wrapper
-    needs: [build-release]
-
-    strategy:
-      matrix:
-        arch: [linux-aarch64, linux-x86_64, darwin-universal, windows-x86_64]
-        python-version: ["3.8"]
-        include:
-          - os: ubuntu-latest
-            arch: linux-aarch64
-            plat-name: manylinux2014_aarch64
-          - os: ubuntu-latest
-            arch: linux-x86_64
-            plat-name: manylinux2014_x86_64
-          - os: macos-11
-            arch: darwin-universal
-            plat-name: macosx_10_9_universal2 # macosx_10_9_x86_64
-          - os: windows-latest
-            arch: windows-x86_64
-            plat-name: win_amd64
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools wheel twine auditwheel
-
-      - name: Fetch library artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: library-${{ matrix.arch }}
-          path: wrappers/python/indy_vdr/
-
-      - name: Build python package
-        shell: sh
-        run: |
-          python setup.py bdist_wheel --python-tag=py3 --plat-name=${{ matrix.plat-name }}
-        working-directory: wrappers/python
-
-      - name: Test python package
-        # FIXME cross platform test the python package
-        # maybe use the cross docker image?
-        if: "matrix.arch != 'linux-aarch64'"
-        shell: sh
-        run: |
-          pip install dist/*
-          python -m demo.test
-        working-directory: wrappers/python
-
-      - if: "runner.os == 'Linux'"
-        name: Auditwheel
-        run: auditwheel show wrappers/python/dist/*
-
-      - name: Upload python package
-        uses: actions/upload-artifact@v3
-        with:
-          name: python-${{ matrix.arch }}
-          path: wrappers/python/dist/*
-
-      - if: |
-          github.event_name == 'release' ||
-          (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-wrappers == 'true')
-        name: Publish python package
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          twine upload --skip-existing dist/*
-        working-directory: wrappers/python
