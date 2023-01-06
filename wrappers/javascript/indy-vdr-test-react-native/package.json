@@ -1,7 +1,6 @@
 {
   "name": "indy-vdr-test-react-native",
   "version": "0.2.0",
-  "private": true,
   "license": "Apache-2.0",
   "description": "React Native wrapper for Indy Vdr",
   "source": "src/index",
