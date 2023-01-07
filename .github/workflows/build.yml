@@ -213,12 +213,11 @@ jobs:
           lipo -create aarch64-apple-ios-sim/libindy_vdr.a \
                        x86_64-apple-ios/libindy_vdr.a \
                -output libindy_vdr.a
-      - run: mkdir output
       - run: >
           xcodebuild -create-xcframework \
             -library aarch64-apple-ios/libindy_vdr.a -headers ./libindy_vdr/include/libindy_vdr.h \
             -library libindy_vdr.a                   -headers ./libindy_vdr/include/libindy_vdr.h \
-            -output out/indy_vdr.xcframework
+            -output output/indy_vdr.xcframework
       - name: Save xcframework
         uses: actions/upload-artifact@v3
         with:
