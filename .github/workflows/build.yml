@@ -222,7 +222,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: indy_vdr.xcframework
-          path: output/indy_vdr.xcframework
+          path: output/
 
   build-android:
      name: Build library (Android)
