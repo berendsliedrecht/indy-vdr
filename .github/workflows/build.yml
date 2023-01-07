@@ -222,7 +222,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: indy_vdr.xcframework
-          path: output/
+          path: output/indy_vdr.xcframework
 
   build-android:
      name: Build library (Android)
@@ -283,10 +283,10 @@ jobs:
       needs:
         - create-ios-xcframework
         - create-android-library
-      if: |
-        (github.event_name == 'release' ||
-        (github.event_name == 'workflow_dispatch' &&
-         github.event.inputs.publish == 'true'))
+          # if: |
+          #   (github.event_name == 'release' ||
+          #   (github.event_name == 'workflow_dispatch' &&
+          #    github.event.inputs.publish == 'true'))
 
       steps:
         - name: Fetch Android libraries
@@ -299,7 +299,7 @@ jobs:
           uses: actions/download-artifact@v3
           with:
             name: indy_vdr.xcframework
-            path: mobile/ios/indy_vdr.xcframework/
+            path: mobile/ios/
 
         - run: ls -R
         - uses: a7ul/tar-action@v1.1.2
