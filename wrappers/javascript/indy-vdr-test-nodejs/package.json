@@ -1,6 +1,6 @@
 {
   "name": "indy-vdr-test-nodejs",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "license": "Apache-2.0",
   "description": "Nodejs wrapper for Indy Vdr",
   "source": "src/index",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
     "ffi-napi": "^4.0.3",
-    "indy-vdr-test-shared": "0.2.7",
+    "indy-vdr-test-shared": "0.2.8",
     "ref-array-di": "^1.2.2",
     "ref-napi": "^3.0.3",
     "ref-struct-di": "^1.1.1"
@@ -53,7 +53,7 @@
   "binary": {
     "module_name": "indy_vdr",
     "module_path": "native",
-    "remote_path": "v0.2.7",
+    "remote_path": "v0.2.8",
     "host": "https://github.com/animo/indy-vdr-release/releases/download/",
     "package_name": "library-{platform}.tar.gz"
   }
