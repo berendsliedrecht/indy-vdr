@@ -63,7 +63,7 @@ jobs:
       - name: Cache cargo resources
         uses: Swatinem/rust-cache@v2
 
-      - if: "!matrix.use_cross"
+      - if: '!matrix.use_cross'
         name: Build library
         env:
           BUILD_TARGET: ${{ matrix.target }}
@@ -113,17 +113,27 @@ jobs:
           file: library-${{ matrix.arch }}.tar.gz
           asset_name: 'library-${{ matrix.arch }}.tar.gz'
 
-  build-javascript:
-    name: Build and Test JavaScript wrapper
+  test-javascript:
+    name: Test JavaScript
     needs: [build-release]
-    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            library: library-linux_x86_64
+          - os: macos-latest
+            library: library-darwin-universal
+          - os: windows-latest
+            library: library-windows_x86_64
+
+    runs-on: ${{matrix.os}}
     defaults:
       run:
         working-directory: wrappers/javascript
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Node.JS 16.x
         uses: actions/setup-node@v3
@@ -133,7 +143,7 @@ jobs:
       - name: Fetch library artifacts
         uses: actions/download-artifact@v3
         with:
-          name: library-linux-x86_64
+          name: ${{matrix.library}}
 
       - name: Install dependencies
         run: yarn install
@@ -156,6 +166,29 @@ jobs:
           LIB_INDY_VDR_PATH: ../../../
         run: yarn test
 
+  build-and-release-javascript:
+    name: Build and Release JavaScript wrapper
+    needs: [test-javascript, build-release]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wrappers/javascript
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.JS 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build JavaScript Wrapper
+        run: yarn build
+
       - name: Set NPM config
         if: |
           github.event_name == 'release' ||
@@ -176,29 +209,29 @@ jobs:
         run: npx lerna publish from-package --no-push --no-private --yes --no-git-tag-version
 
   build-ios:
-      name: Build Library (iOS)
-      runs-on: macos-latest
+    name: Build Library (iOS)
+    runs-on: macos-latest
 
-      strategy:
-        matrix:
-          architecture:
-            [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
+    strategy:
+      matrix:
+        architecture:
+          [aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios]
 
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions-rs/toolchain@v1
-          with:
-            toolchain: stable
-            target: ${{ matrix.architecture }}
-        - uses: actions-rs/cargo@v1
-          with:
-            command: build
-            args:  --release --target ${{ matrix.architecture }} --package indy-vdr
-        - name: Save library
-          uses: actions/upload-artifact@v2
-          with:
-            name: ${{ matrix.architecture}}
-            path: target/${{ matrix.architecture }}/release/libindy_vdr.a
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.architecture }}
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --target ${{ matrix.architecture }} --package indy-vdr
+      - name: Save library
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.architecture}}
+          path: target/${{ matrix.architecture }}/release/libindy_vdr.a
 
   create-ios-xcframework:
     name: Create iOS xcframework
@@ -225,30 +258,30 @@ jobs:
           path: output/
 
   build-android:
-     name: Build library (Android)
-     runs-on: ubuntu-latest
-     strategy:
-       matrix:
-         architecture:
-           [
-             aarch64-linux-android,
-             armv7-linux-androideabi,
-             i686-linux-android,
-             x86_64-linux-android,
-           ]
+    name: Build library (Android)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture:
+          [
+            aarch64-linux-android,
+            armv7-linux-androideabi,
+            i686-linux-android,
+            x86_64-linux-android,
+          ]
 
-     steps:
-       - uses: actions/checkout@v3
-       - uses: actions-rs/cargo@v1
-         with:
-           use-cross: true
-           command: build
-           args: --release --target ${{matrix.architecture}} --package indy-vdr
-       - name: Save library
-         uses: actions/upload-artifact@v2
-         with:
-           name: ${{matrix.architecture}}
-           path: target/${{ matrix.architecture }}/release/libindy_vdr.so
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target ${{matrix.architecture}} --package indy-vdr
+      - name: Save library
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.architecture}}
+          path: target/${{ matrix.architecture }}/release/libindy_vdr.so
 
   create-android-library:
     name: Create library (Android)
@@ -278,38 +311,38 @@ jobs:
           failOnError: false
 
   create-ios-android-release-asset:
-      name: Create iOS and Android Release Assets
-      runs-on: ubuntu-latest
-      needs:
-        - create-ios-xcframework
-        - create-android-library
-          # if: |
-          #   (github.event_name == 'release' ||
-          #   (github.event_name == 'workflow_dispatch' &&
-          #    github.event.inputs.publish == 'true'))
+    name: Create iOS and Android Release Assets
+    runs-on: ubuntu-latest
+    needs:
+      - create-ios-xcframework
+      - create-android-library
+        # if: |
+        #   (github.event_name == 'release' ||
+        #   (github.event_name == 'workflow_dispatch' &&
+        #    github.event.inputs.publish == 'true'))
 
-      steps:
-        - name: Fetch Android libraries
-          uses: actions/download-artifact@v3
-          with:
-            name: android-libraries
-            path: mobile/android/
+    steps:
+      - name: Fetch Android libraries
+        uses: actions/download-artifact@v3
+        with:
+          name: android-libraries
+          path: mobile/android/
 
-        - name: Fetch iOS Framework
-          uses: actions/download-artifact@v3
-          with:
-            name: indy_vdr.xcframework
-            path: mobile/ios/
+      - name: Fetch iOS Framework
+        uses: actions/download-artifact@v3
+        with:
+          name: indy_vdr.xcframework
+          path: mobile/ios/
 
-        - run: ls -R
-        - uses: a7ul/tar-action@v1.1.2
-          with:
-            command: c
-            files: ./mobile
-            outPath: "library-ios-android.tar.gz"
+      - run: ls -R
+      - uses: a7ul/tar-action@v1.1.2
+        with:
+          command: c
+          files: ./mobile
+          outPath: 'library-ios-android.tar.gz'
 
-        - name: Add library artifacts to release
-          uses: svenstaro/upload-release-action@v2
-          with:
-            file: library-ios-android.tar.gz
-            asset_name: "library-ios-android.tar.gz"
+      - name: Add library artifacts to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: library-ios-android.tar.gz
+          asset_name: 'library-ios-android.tar.gz'
